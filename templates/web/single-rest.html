@@ -1,0 +1,153 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+{% load static %}
+
+
+
+
+
+
+<header class="w-[100%] flex justify-center items-center h-[60px] shadow-lg">
+    <div class="w-[90%] flex justify-between items-center h-[100px]">
+        <img src="{% static 'web/images/logo.png' %} " alt="pic" class="h-[50px]">
+
+        <nav class="hidden md:block">
+
+            <ul class="flex justify-center items-center gap-8">
+                <li class=""><a href="{% url 'web:index' %}" class="flex justify-center items-center gap-3"><img
+                            src="{% static 'web/images/home.png' %}" alt="pic" class="h-6 ">home</a></li>
+                <li class=""><a href="" class="flex justify-center items-center gap-3"><img
+                            src="{% static 'web/images/search.png' %}" alt="" class="h-6">Search</a></li>
+                <li class=""><a href="{% url 'web:cart'%}" class="flex justify-center items-center gap-3"><img
+                            src="{% static 'web/images/bag.png' %} " alt="pic" class="h-6 ">Cart</a></li>
+                <li class=""><a href="{% url 'web:account' %}" class="flex justify-center items-center gap-3"><img
+                            src="{% static 'web/images/user.png' %}" alt="pic " class="h-6">Account</a></li>
+            </ul>
+        </nav>
+
+        <div class="flex justify-center items-center">
+            <img src="{% static 'web/images/map.png' %}" alt="" class="h-9 ">
+            <p class="border-b-4 border-b-yellow-500">Tirur,malappuram</p>
+
+
+        </div>
+    </div>
+</header>
+
+
+<section class="w-[100%] flex justify-center items-center h-[40vh]">
+    <section class="w-[90%] flex justify-center items-center   ">
+        <div class="  sm:w-[60%] md:[50%]">
+            <div class="flex justify-start items-center gap-5 border   rounded-lg p-5">
+                <img src="{{store.image.url}}" alt="" class="h-[120px] rounded-lg ">
+                <div class="">
+                    <h2 class="font-bold text-[20px] ">{{store.name}}</h2>
+                    <p class="text-[#000000a6]">{{store.short_descritpion}}</p>
+                    <div class="flex  items-center gap-5">
+                        <div class="flex justify-center items-center gap-2 ">
+                            <img src="{% static 'web/images/star.png'%}" alt="pic" class="h-5">
+                            <p class="font-semibold text-[15px]">{{store.rating}}</p>
+                        </div>
+                        <div class="flex justify-center items-center gap-2 p-2">
+                            <img src="{% static 'web/images/clock.png' %}" alt="pic" class="h-5">
+                            <p class="font-semibold text-[15px]">{{store.time}} min</p>
+                        </div>
+
+                    </div>
+                    <!-- <div class="flex justify-center items-center gap-3 ">
+                        <img src="{% static 'web/images/discount.png' %}" alt="" class="h-5">
+                        <p class="font-bold text-red-600 text-[15px]">"UPTO 40% DISCOUNT"</p>
+
+
+                    </div> -->
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+
+
+<section class="W-[100%] flex justify-center items-center">
+    <section class="w-[90%] justify-start items-center flex-col ">
+
+        {% for food in food_categories %}
+        {% if food.fooditem.all %}
+        <div class="flex justify-start items-center  flex-col mt-16  ">
+            <div class="text-start">
+                <h1 class="text-[#000000b1] font-bold">{{food.name}}</h1>
+            </div>
+           
+            {% for item in cart_product %}
+             {% if item.fooditem.category == food %}
+            <div class="mt-12 flex justify-between  shadow-md h-[190px] p-5 sm:w-[60%]">
+                <div class="">
+                    {% if item.fooditem.is_veg %}
+                        <img src="{% static 'web/images/veg.png' %}" alt="" class="h-[15px]">
+                    {% else %}
+                    
+                        <img src="{% static 'web/images/non.png' %}" alt="" class="h-[15px]">
+                    {% endif %}
+                    <h2 class="font-medium text-[#000000b1]">{{item.fooditem.name}}</h2>
+                    <p class="text-[#000000b1] ">{{item.fooditem.price}}</p>
+                    {% if item.quantity > 0 %}
+                        <div class="flex justify-center items-center mt-4">
+                            <a href="{% url 'web:decr_fooditem'  id=item.cart.id %}" class=""><button class="bg-green-400 py-3 px-4 rounded-s-lg text-white ">- </button></a>
+                            <span class="bg-slate-100 p-3">{{item.quantity}}</span>
+                            <a href="{% url 'web:inc_fooditem' id=item.cart.id %}" class=""><button class="bg-green-400 py-3 px-4  rounded-e-lg text-white  ">+</button></a>
+                        </div>
+                    {% else %} 
+                        <a href="{% url 'web:add_fooditem' id=item.fooditem.id %}"><button class="bg-[#2fe973e7] px-4 mt-5 text-white">ADD</button></a>  
+                    {% endif %}
+                </div>
+                <div>
+                    <img src="{{item.fooditem.image.url}}" alt="" class="h-[120px] rounded-lg">
+                </div>
+
+            </div>
+            {% endif %}
+            
+            {% endfor %}
+
+
+            
+
+
+
+           
+        </div>
+        {% endif %}
+        {% endfor %}
+
+
+
+
+
+
+    </section>
+</section>
+<section class="pt-10 ">
+    <section class="wrapper flex justify-center items-center h-[10vh] ">
+        <div class="bg-red-600 flex justify-between w-[65%] p-3 text-white rounded-lg">
+            <div>
+                <p>
+                    <span>{{count}} item |</span>
+                    <span>${{sum}}</span>
+                </p>
+            </div>
+            <div class="flex justify-center gap-5">
+                <a href="{% url 'web:cart' %}"><p>View Cart</p></a>  
+                <img src="{% static 'web/images/cart.png' %}" alt="" class="w-[20px]">
+            </div>
+        </div>
+
+
+    </section>
+
+</section>
+
+{% endblock%}

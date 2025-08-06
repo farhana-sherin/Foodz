@@ -1,0 +1,179 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %}
+
+
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10">
+      <a href="{% url 'web:single_rest' id=store.id %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[30px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">Cart</h1>
+
+
+     
+</header>
+
+<section class="w-[100%] flex justify-center items-center h-[40vh]">
+    <section class="wrapper flex justify-center items-center   ">
+        
+            <div class="flex justify-start  gap-5 border   rounded-lg p-5 w-[50%]  sm:w-[70%] md:w-[50%]">
+                <img src="{{store.image.url}}" alt="" class="h-[180px] rounded-lg ">
+                <div class="">
+                    <h2 class="font-bold text-[20px] ">{{store.name}}</h2>
+                    <p class="text-[#000000a6]">{{store.short_descritpion}}</p>
+                    <div class="flex  items-center gap-5">
+                        <div class="flex justify-center items-center gap-2 ">
+                            <img src="{% static 'web/images/star.png'%}" alt="pic" class="h-5">
+                            <p class="font-semibold text-[15px]">{{store.rating}}</p>
+                        </div>
+                        <div class="flex justify-center items-center gap-2 p-2">
+                            <img src="{% static 'web/images/clock.png' %}" alt="pic" class="h-5">
+                            <p class="font-semibold text-[15px]">{{store.time}} min</p>
+                        </div>
+
+                    </div>
+                    
+
+
+                </div>
+            </div>
+           
+       
+    </section>
+</section>
+
+<section>
+    <section class="wrapper flex justify-center items-center">
+        <div class=" border   rounded-lg p-5 w-[50%]  sm:w-[70%] md:w-[50%]"> 
+            <h1 class="font-semibold text-[17px] border-b-2 border-[#00000020] pb-3 ">ITEM IN CART</h1>
+            {% for cart in carts %}
+            <div class="flex justify-between  gap-40 border-b-2">
+                <div class="mt-3">
+                  <h2 class="font font-semibold">{{cart.item}}</h2>
+                  <p class="font-bold">₹ {{cart.amount}}</p>
+                </div>
+                
+                <div class="flex  gap- justify-center items-center   p-3 mt-3 ">
+                  <a href="{% url 'web:cart_decr_fooditem' id=cart.id %}" class=""><button class="bg-green-400 py-3  px-5 rounded-s-lg text-white ">-</button></a>
+                    <span class="bg-slate-100 p-3">{{cart.quantity}}</span>
+                    <a href="{% url 'web:cart_inc_fooditem' id=cart.id %}" class=""-><button class="bg-green-400 py-3  px-5  rounded-e-lg  text-white ">+</button></a>
+                </div>
+            </div>
+            {% endfor %}
+
+              
+
+       
+    </section>
+</section>
+<section class="py-10">
+    <section class="wrapper flex justify-center items-center "> 
+        <div class="border w-[50%]  rounded-xl flex justify-center flex-col  ">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="flex px-5  justify-between gap-40 items-center  mt-6  mb-6 ">
+
+              <input type="text" placeholder="Coupen Code"  name="CoupenCode" class="font-semibold text-[18px] text-[#00000062] outline-none px-2">
+              <button type="submit" class="bg-green-400 p-2  px-8 font-bold text-white text-[15px] rounded-lg "> APPLY</button>
+              
+                
+            </div>
+            {% if error %}
+              <p class="text-red-600 ml-7 mb-4">{{error}}</p>
+            {% endif %}
+          </form>
+            
+            
+            <div class="w-[95%] h-[1.5px] bg-[#00000020] mx-auto"></div>
+            <div class=" flex justify-start items-center  py-6  ml-5 text-[18px] text-red-500 font-bold gap-3">
+                <img src="{% static 'web/images/discount.png' %}" alt="" class="w-[20px]">
+                <a href="{% url 'web:offers' %}">View All Offers</a>
+            </div>
+            
+        </div>
+    </section>
+</section>
+
+
+
+<section class="py-2">
+  <section class="wrapper flex justify-center items-center flex-col">
+    <div class="border rounded-lg p-5 w-[50%] sm:w-[70%] md:w-[50%]">
+      <h1 class="font-bold text-[17px] border-[#00000020] pb-3">BILL DETAILS</h1>
+      <div class="flex flex-col space-y-3">
+       
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Item Total</h2>
+          <p class="font-semibold">₹ {{itemtotal}}</p>
+        </div>
+        
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Offer Applied</h2>
+          <p class="font-semibold">-₹ {{cartbill.offer_amount}} </p>
+        </div>
+        
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Delivery Charges (4km) </h2>
+          <p class="font-semibold">₹ {{cartbill.delivery_charge}} </p>
+        </div>
+        
+        <div class="flex justify-between items-center  pb-2">
+          <h2 class="font-bold">To Pay</h2>
+          <p class="font-bold">₹ {{topay}} </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="border rounded-xl flex flex-col mt-10 w-[90%] sm:w-[80%] md:w-[60%] lg:w-[50%] mx-auto mb-10">
+
+      <div class="px-6 pt-4 ">
+        <h3 class="font-bold text-[18px] text-[#00000062] mb-5" >DELIVER TO</h3>
+      </div>
+
+ 
+      <div class="w-[95%] h-[1.5px] bg-[#00000020] mx-auto"></div>
+      {% if selected_address %}
+        
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 py-6 px-6">
+          <p class="text-[15px] text-red-500 font-bold">{{selected_address.address}}</p>
+          <a
+            href="{% url 'web:address'%}"
+            class="bg-green-400 px-6 py-2 font-bold text-white text-[15px] rounded">CHANGE
+          </a>
+        </div>
+
+      {% else %}
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 py-6 px-6">
+          <p class="text-[15px] text-red-500 font-bold">ADD ADDRESS</p>
+          <a
+            href="{% url 'web:address'%}"
+            class="bg-green-400 px-6 py-2 font-bold text-white text-[15px] rounded-lg">ADD
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <a href="{% url 'web:checkout' %}">
+      <div class="bg-red-600 w-[50%] h-[55px] rounded-lg flex justify-center items-center mb-10">
+         <a href="{% url 'web:checkout' %}"> <div class=" text-white flex justify-center items-center font-bold text-[20px] ">
+              <h1 >CONTINUE</h1>
+           </div></a>
+    </div>
+  
+
+  </section>
+</section>
+
+{% endblock %}

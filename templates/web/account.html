@@ -1,0 +1,136 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %}
+
+
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10"><a href="{% url 'web:index' %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[40px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">Account</h1>
+
+
+     
+</header>
+<section class="py-10 ">
+    <section class=" wrapper flex relative ">
+        <div class="flex  flex-col">
+             <div class="flex  justify-start items-center border-4   p-5 gap-5 sm:w-[60%] md:w-[100%] rounded-xl">
+
+            <div class="">
+                <img src="{% static 'web/images/man.png'%}" alt="pic" class="w-[120px]">
+
+            </div>
+            <div class="text-[18px] font-bold sm:text-[15px] md:text-[18px]">
+                <h3 class="mb-1">{{customer.user.first_name}} {{customer.user.last_name}}</h3>
+                <p class="mb-1">{{customer.user.email}}</p>
+                <p class="mb-1"></p>
+            </div>
+
+        </div>
+        
+        <div class=" flex flex-col gap-4 items-start pt-10  ">
+            <div
+                class="bg-green-400 h-[50px] w-[100%] flex justify-start items-center rounded-xl sm:w-[40%] md:w-[100%] ">
+                <a href="{% url 'web:address' %}" class="flex justify-center items-center gap-5 text-[20px] text-white font-bold ml-7 ">
+                    <img src="{% static 'web/images/address.png' %}" alt="" class="w-[30px]">
+                    Manage Address
+                </a>
+            </div>
+
+            <div class="bg-green-400 h-[50px] w-[100%] flex justify-start items-center rounded-xl sm:w-[40%] md:w-[100%]">
+                <a href="{% url 'web:orders' %}" class="flex justify-start items-center gap-5 text-[20px] text-white font-bold ml-7">
+                    <img src="{% static 'web/images/cart.png' %}" alt="" class="w-[30px]">
+                    orders
+                </a>
+            </div>
+
+            <div class="bg-green-400 h-[50px] w-[100%] flex justify-start items-center rounded-xl sm:w-[40%] md:w-[100%]">
+                <a href="{% url 'web:logout'%}" class="flex justify-start items-center gap-5 text-[20px] text-white font-bold ml-7">
+                    <img src="{% static 'web/images/logout.png' %}" alt="" class="w-[30px]">
+                    logout
+                </a>
+            </div>
+        </div>
+
+
+        </div>
+       
+
+
+
+
+
+        <div class="absolute -right-10">
+        <h1 class="font-bold text-[20px]">Recent Orders</h1>
+        <div class="grid grid-cols-2 gap-10">
+        {% for item in item_count %}
+        <div class="shadow-md rounded-xl  ">
+         
+           
+        
+            <div class="flex justify-center  gap-40 mt-10 border-b-2 p-5   ">
+                <div class="flex justify-start items-start gap-6 ">
+                    <img src="{{item.order.store.image.url}}" alt="" class="w-[100px]">
+                    <div>
+                        <h2>{{item.order.store.name}}<h2>
+                        <p>${{item.order.total}} | <span> {{item.count}} item</span></p>
+                    </div>
+
+                </div>
+
+                <p class="underline">{{item.order.order_id}}</p>
+
+
+
+            </div>
+        
+        <div class="flex justify-between items-center p-5 ">
+            <a href="{% url 'web:track' id=item.order.id %}" class="bg-green-400 p-2 text-white font-bold rounded-xl">TRACK ORDER</a>
+            <p class="text-[20px] {% if item.order.status == 'PALCEORDER'%}text-orange-500{% elif item.order.status == 'ACCEPT'%}text-yellow-700{% elif item.order.status == 'SHIPPED'%}text-blue-500{% elif item.order.status == 'ONTHEWAY'%}text-indigo-700{% elif item.order.status == 'DELIVERD'%}text-green-600{% else %}text-red-500{% endif %}">
+                {% if item.order.status == 'PALCEORDER'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'ACCEPT'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'SHIPPED'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'ONTHEWAY'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'DELIVERD'%}
+                    {{item.order.status}}
+                {% else %}
+                    {{item.order.status}} 
+                {% endif %}
+            </p>
+        </div>
+      
+    </div>
+      {% endfor %}
+    </div>
+    </div>
+
+    </section>
+
+</section>
+
+
+ 
+
+
+
+
+
+
+
+{% endblock %}

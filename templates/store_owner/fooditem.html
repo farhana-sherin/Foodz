@@ -1,0 +1,81 @@
+{% extends "base/store_base.html" %}
+{% block container %}
+{% load static %}
+
+{% include 'includes/store-nav.html' %}
+
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Food</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">All Food Items</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="heading-line">
+                            <h4 class="card-title m-0 p-0">Food Item List</h4>
+                            <a href="{% url 'store_owner:add_fooditem' %}" id="custom-btn">ADD FOOD</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Store</th>
+                                        <th>Price</th>
+                                        <th>Veg?</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for instance in instances %}
+                                    <tr>
+                                        <td>{{ instance.id }}</td>
+                                        <td><img src="{{ instance.image.url }}" alt="{{ instance.name }}" width="100"></td>
+                                        <td>{{ instance.name }}</td>
+                                        <td>{{ instance.category.name }}</td>
+                                        <td>{{ instance.store.name }}</td>
+                                        <td>₹{{ instance.price }}</td>
+                                        <td>
+                                            {% if instance.is_veg %}
+                                                <span class="badge badge-success">Veg</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">Non-Veg</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'store_owner:edit_fooditem' id=instance.id %}" id="custom-btn">Edit</a>
+                                            <a href="{% url 'store_owner:delete_fooditem' id=instance.id %}" id="custom-btn">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--**********************************
+    Content body end
+***********************************-->
+
+{% endblock %}

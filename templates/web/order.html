@@ -1,0 +1,100 @@
+
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %} 
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10">
+        <a href="{% url 'web:account' %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[30px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">Orders</h1>
+
+
+     
+</header>
+      
+      
+      
+      <section class="w-[100%] flex justify-center items-center mt-10 ">
+      <section class="w-[90%] h-[100vh] ">
+        
+        <h1 class="font-bold text-[30px]">Recent Orders</h1>
+      
+        <div class="grid grid-cols-3 gap-10 ">
+    {% for item in item_count %}
+        <div class=" shadow-md w-[100%] mt-10">
+        
+            <div class="flex justify-start  gap-40   p-5  ">
+                <div class="flex justify-start items-start gap-6  ">
+                    <img src="{{item.order.store.image.url}}" alt="" class="w-[100px]">
+                    <div>
+                        <h2>{{item.order.store.name}}<h2>
+                        <p>₹ {{item.order.total}} | <span> {{item.count}} item</span></p>
+                    </div>
+
+                </div>
+
+                <p class="underline">{{item.order_id}}</p>
+               
+
+
+
+            </div>
+            
+            <div class="w-[100%] flex justify-start items-center">
+        
+        <div class="flex flex-col justify-around items-center p-5 ">
+             <div class="  justify-center items-center border-2 w-[100%]"></div>
+             <div class="flex justify-around items-center gap-48 mt-5">
+                 <a href="{% url 'web:track' id=item.order.id %}" class="bg-green-400 p-2 text-white font-bold rounded-xl">TRACK ORDER</a>
+            <p class="text-[20px] {% if item.order.status == 'PALCEORDER'%}text-orange-500{% elif item.order.status == 'ACCEPT'%}text-yellow-700{% elif item.order.status == 'SHIPPED'%}text-blue-500{% elif item.order.status == 'ONTHEWAY'%}text-indigo-700{% elif item.order.status == 'DELIVERD'%}text-green-600{% else %}text-red-500{% endif %}">
+                {% if item.order.status == 'PALCEORDER'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'ACCEPT'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'SHIPPED'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'ONTHEWAY'%}
+                    {{item.order.status}}
+                {% elif item.order.status == 'DELIVERD'%}
+                    {{item.order.status}}
+                {% else %}
+                    {{item.order.status}} 
+                {% endif %}
+            </p>
+             </div>
+           
+        </div>
+        </div>
+        </div>
+          {% endfor %}
+    </div>
+  
+
+
+    
+        
+        
+        
+        
+
+
+    </div>
+
+</section>
+    </section>
+
+
+    
+{% endblock %}

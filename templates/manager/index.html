@@ -1,0 +1,130 @@
+{% extends "base/manager_base.html" %} 
+{% block container %} 
+{% load static %}
+
+
+{% include 'includes/manager-nav.html' %}
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div id="overview-container" class="card">
+                <h1 class="card-title">Overview</h1>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card-body dash-item">
+                            <div class="icon-bg">
+                                <i class="fa-solid fa-chart-column"></i>
+                            </div>
+                            <div>
+                                <p>Orders</p>
+                                <h3>{{orders}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card-body dash-item">
+                            <div class="icon-bg">
+                                <i class="fa-solid fa-user-group"></i>
+                            </div>
+                            <div>
+                                <p>Customers</p>
+                                <h3>{{customers}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card-body dash-item">
+                            <div class="icon-bg">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <p>Stores</p>
+                                <h3>{{stores}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card-body dash-item">
+                            <div class="icon-bg">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <div>
+                                <p>Earnings</p>
+                                {% if staff %}
+                                <h3>{{manager.country.currency}} {{total_earnigs}}</h3>
+                                {% else %}
+                                <h3>{{total_earnigs}}</h3>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="container-fluid mt-3">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="card-title" style="padding-bottom: 16px;">Recent Orders</h1>
+                                <div class="active-member">
+                                    <div class="table-responsive">
+                                        <table class="table table-xs mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Customer</th>
+                                                    <th>Store</th>
+                                                    <th>Delivery</th>
+                                                    <th>View</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for instance in instances %}
+                                                <tr>
+                                                    <td>{{instance.customer.user.first_name}} {{instance.customer.user.last_name}}</td>
+                                                    <td>{{instance.store.name}}</td>
+                                                    <td>
+                                                        <a href="" id="custom-btn">ASSIGN</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'manager:currentOrder' id=instance.id %}" id="custom-btn">VIEW</a>
+                                                    </td>
+                                                    <td class="">
+                                                          {% if instance.status == "PALCEORDER" %} Placed
+                                                            {% elif instance.status == "ACCEPT" %} Accepted
+                                                            {% elif instance.status == "SHIPPED" %} Shipped
+                                                            {% elif instance.status == "ONTHEWAY" %} On the Way
+                                                            {% elif instance.status == "DELIVERD" %} Delivered
+                                                            {% elif instance.status == "CANCELED" %} Canceled
+                                                            {% else %} Unknown
+                                                            {% endif %}
+                                                        
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        {% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base/manager_base.html" %}
+{% block container %}
+{% load static %}
+
+{% include 'includes/manager-nav.html' %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Store</h4>
+                        <form method="post" enctype="multipart/form-data" class="ajax redirect">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Store Name</label>
+                                    {{ form.name }}
+                                </div>
+                                
+                                <div class="form-group col-md-6">
+                                    <label>Category</label>
+                                    {{ form.category }}
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label>Rating</label>
+                                    {{ form.rating }}
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label>Time</label>
+                                    {{ form.time }}
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label>Description</label>
+                                    {{ form.short_descritpion }}
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label>Store Image</label>
+                                    {{ form.image }}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save Store</button>
+                            <a href="{% url 'manager:store' %}" class="btn btn-secondary">Cancel</a>
+
+                            {% if error %}
+                                <p class="text-danger mt-2">{{ message }}</p>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

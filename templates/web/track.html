@@ -1,0 +1,179 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+{% load static %}
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10">
+        <a href="{% url 'web:account' %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[30px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold"></h1>
+
+
+     
+</header>
+
+
+<section class="w-[100%] flex justify-center items-center ">
+    <section class="wrapper flex justify-center items-center flex-col mt-10  ">
+        <div class="flex justify-start  gap-5 border   rounded-lg p-5 w-[50%]  sm:w-[70%] md:w-[50%]">
+            <img src="{{order.store.image.url}}" alt="" class="h-[180px] rounded-lg ">
+            <div class="">
+                <h2 class="font-bold text-[20px] ">{{order.store.name}}</h2>
+                <p class="text-[#000000a6]">{{order.store.short_descritpion}}</p>
+                <div class="flex  items-center gap-5">
+                    <div class="flex justify-center items-center gap-2 ">
+                        <img src="{% static 'web/images/star.png'%}" alt="pic" class="h-5">
+                        <p class="font-semibold text-[15px]">{{order.store.rating}}</p>
+                    </div>
+                    <div class="flex justify-center items-center gap-2 p-2">
+                        <img src="{% static 'web/images/clock.png' %}" alt="pic" class="h-5">
+                        <p class="font-semibold text-[15px]">{{order.store.time}} min</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+    <div class="mt-10">
+    <h1 class="text-[30px] text-center mb-6">Order Status</h1>
+    <div class="w-full flex items-center justify-between relative">
+</div>
+</div>
+
+<div class="relative flex justify-around items-center w-[50%] mt-10">
+
+  <!-- Gray background line -->
+  <div class="absolute top-6 left-0 right-0 h-1 bg-gray-300 rounded"></div>
+
+  <!-- Green progress line -->
+  <div class="absolute top-6 left-0 h-1 bg-green-500 rounded"style="
+       {% if order.status == 'PALCEORDER' %}
+         width: 0%;
+       {% elif order.status == 'ACCEPT' %}
+         width: 25%;
+       {% elif order.status == 'SHIPPED' %}
+         width: 50%;
+       {% elif order.status == 'ONTHEWAY' %}
+         width: 75%;
+       {% elif order.status == 'DELIVERD' %}
+         width: 100%;
+       {% else %}
+         width: 0%;
+       {% endif %}
+     ">
+</div>
+
+
+  <!-- Steps -->
+  <div class="flex flex-col items-center">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center
+        {% if order.status in 'PALCEORDER ACCEPT SHIPPED ONTHEWAY DELIVERD' %}
+          bg-green-500 text-white
+        {% else %}
+          bg-gray-300 text-gray-600
+        {% endif %}">
+      1
+    </div>
+    <span class="text-lg mt-2">Placed</span>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center
+        {% if order.status in 'ACCEPT SHIPPED ONTHEWAY DELIVERD' %}
+          bg-green-500 text-white
+        {% else %}
+          bg-gray-300 text-gray-600
+        {% endif %}">
+      2
+    </div>
+    <span class="text-lg mt-2">Accepted</span>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center
+        {% if order.status in 'SHIPPED ONTHEWAY DELIVERD' %}
+          bg-green-500 text-white
+        {% else %}
+          bg-gray-300 text-gray-600
+        {% endif %}">
+      3
+    </div>
+    <span class="text-lg mt-2">Shipped</span>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center
+        {% if order.status in 'ONTHEWAY DELIVERD' %}
+          bg-green-500 text-white
+        {% else %}
+          bg-gray-300 text-gray-600
+        {% endif %}">
+      4
+    </div>
+    <span class="text-lg mt-2">On the Way</span>
+  </div>
+
+  <div class="flex flex-col items-center">
+    <div class="w-8 h-8 rounded-full flex items-center justify-center
+        {% if order.status == 'DELIVERD' %}
+          bg-green-500 text-white
+        {% else %}
+          bg-gray-300 text-gray-600
+        {% endif %}">
+      5
+    </div>
+    <span class="text-lg mt-2">Delivered</span>
+  </div>
+</div>
+
+
+
+
+        <div class="border rounded-lg p-5  sm:w-[70%] md:w-[50%] mt-10 mb-10">
+      <h1 class="font-bold text-[17px] border-[#00000020] pb-3">BILL DETAILS</h1>
+      <div class="flex flex-col space-y-3">
+       
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Item Total</h2>
+          <p class="font-semibold">₹ {{order.subtotal}}</p>
+        </div>
+        
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Offer Applied</h2>
+          <p class="font-semibold">-₹ {{offer_amount}} </p>
+        </div>
+        
+        <div class="flex justify-between items-center border-b-2 pb-2">
+          <h2 class="font-semibold">Delivery Charges (4km) </h2>
+          <p class="font-semibold">₹ {{order.delivery_charge}} </p>
+        </div>
+        
+        <div class="flex justify-between items-center  pb-2">
+          <h2 class="font-bold">To Pay</h2>
+          <p class="font-bold">₹ {{order.total}} </p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    </section>
+</section>
+
+
+{% endblock %}

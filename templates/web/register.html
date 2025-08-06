@@ -1,0 +1,42 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+{% load static %}
+
+<section- class="grid grid-cols-1 md:grid-cols-2 gap-5 h-screen">
+    <div class="col-span-1 hidden md:flex">
+        <img src="{% static 'web/images/rest2.png' %}" alt="pic" class="w-full">
+    </div>
+   
+        <div class="col-span-1 h-screen flex justify-center items-center">
+
+        <div class="text-center">
+            
+                <h1 class="text-[32px] font-semibold mb-5">SIGN UP NOW</h1>
+                <p class="w-[90%] md:w-[70%] m-auto mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. At fuga, quos voluptatum consectetur aspernatur expedita quaerat eos eius doloremque perferendis corrupti nisi id placeat facere numquam molestiae nobis ex eaque!</p>
+        <form action="" method="post" class="w-[90%] md:w-[70%] m-auto">
+                {% csrf_token %}
+                <input type="text" name="first_name" placeholder="Enter First Name" class="w-full outline-none rounded-2xl py-3 px-5 mb-5 border">
+                <input type="text" name="last_name" placeholder="Enter  Last Name" class="w-full outline-none rounded-2xl py-3 px-5 mb-5 border">
+                
+                <input type="text" name="email" placeholder="Enter your email" class="w-full outline-none rounded-2xl py-3 px-5 mb-5 border">
+                <input type="text" name="password" placeholder="Enter your password" class="w-full outline-none rounded-2xl py-3 px-5 mb-5 border">
+                <button type="submit" class="py-3 px-5 bg-red-500 text-[14px] font-semibold text-white rounded-xl">register</button>
+
+
+        </form>
+        {% if error %}
+        <p class="mt-5 text-[15px] text-red-500">{{message}}</p>
+        {% endif %}
+        <p class="text-[14px]">Aready  have a account? <a href="{% url 'web:login' %}" class="text-red-500">Login </a>
+        </p>
+
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

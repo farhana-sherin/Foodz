@@ -1,0 +1,30 @@
+{% extends "base/manager_base.html" %}
+{% block container %}
+{% load static %}
+
+<div class="container mt-5">
+    <div class="card shadow rounded-3">
+        <div class="card-body">
+            <h3 class="card-title mb-4"> Profile</h3>
+
+
+            <div class="row mb-3">
+                <div class="col-md-3"><strong>Full Name:</strong></div>
+                <div class="col-md-9">{{manager.user.first_name }} {{ manager.user.last_name }}</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-3"><strong>Email:</strong></div>
+                <div class="col-md-9">{{manager.user.email }}</div>
+            </div>
+
+           
+            <div class="text-end">
+                
+                <a href="{% url 'manager:index' %}" class="btn btn-danger">back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base/manager_base.html" %}
+{% block container %}
+{% load static %}
+
+{% include 'includes/manager-nav.html' %}
+
+<div class="content-body">
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{{ sub_title }}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{{ name }}</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ name }}</h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered zero-configuration">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for manager in managers %}
+                            <tr>
+                                <td>{{ manager.id }}</td>
+                                <td>{{ manager.user.first_name }} {{ manager.user.last_name }}</td>
+                                <td>{{ manager.user.email }}</td>
+                              
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

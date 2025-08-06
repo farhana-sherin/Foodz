@@ -1,0 +1,107 @@
+{% extends "base/store_base.html" %}
+{% block container %}
+{% load static %}
+
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-body">
+            <h3 class="card-title mb-4">Store Owner Profile</h3>
+
+            <!-- User Info -->
+            <div class="mb-4 border-bottom pb-3">
+                <div class="row mb-2">
+                    <div class="col-md-3 fw-semibold text-muted">Full Name:</div>
+                    <div class="col-md-9">{{ store_owner.user.first_name }} {{ store_owner.user.last_name }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 fw-semibold text-muted">Email:</div>
+                    <div class="col-md-9">{{ store_owner.user.email }}</div>
+                </div>
+            </div>
+
+            <!-- Stores Section -->
+            <div class="mb-5">
+                <h4 class="mb-3">Your Stores</h4>
+                {% if stores %}
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        {% for s in stores %}
+                        <div class="col">
+                            <div class="card h-100 shadow-sm border-0 rounded-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ s.name }}</h5>
+                                    <p class="text-muted">{{ s.short_descritpion }}</p>
+                                    <p>Rating: ⭐ {{ s.rating }}</p>
+                                    <p>Delivery Time: {{ s.time }} mins</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No stores found.</p>
+                {% endif %}
+            </div>
+
+            <!-- Food Items Section -->
+            <div class="mb-5">
+                <h4 class="mb-3">Food Items</h4>
+                {% if food_items %}
+                    <ul class="list-group">
+                        {% for item in food_items %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ item.name }}
+                            <span class="badge bg-success rounded-pill">₹{{ item.price }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No food items available.</p>
+                {% endif %}
+            </div>
+
+            <!-- Orders Section -->
+            <div>
+                <h4 class="mb-3">Orders</h4>
+                {% if orders %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Order ID</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ order.order_id }}</td>
+                                    <td>₹{{ order.total }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if order.status == 'DELIVERD' %}bg-success
+                                            {% elif order.status == 'CANCELED' %}bg-danger
+                                            {% elif order.status == 'ONTHEWAY' %}bg-info
+                                            {% else %}bg-secondary{% endif %}
+                                        ">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No orders found.</p>
+                {% endif %}
+            </div>
+
+            <div class="text-end mt-4">
+                <a href="{% url 'store_owner:index' %}" class="btn btn-outline-danger px-4 rounded-pill">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

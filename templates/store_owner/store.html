@@ -1,0 +1,82 @@
+{% extends "base/store_base.html" %}
+{% block container %}
+{% load static %}
+
+{% include 'includes/store-nav.html' %}
+
+<!--**********************************
+    Content body start
+***********************************-->
+<div class="content-body">
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Store</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">All Stores</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="heading-line">
+                            <h4 class="card-title m-0 p-0">Store List</h4>
+                            <a href="{% url 'store_owner:add_store' %}" id="custom-btn">ADD STORE</a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered zero-configuration">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Store Name</th>
+                                        <th>Category</th>
+                                        <th>Rating</th>
+                                        <th>Description</th>
+                                        <th>Time</th>
+                            
+                                        
+                                        
+                                        
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for store in stores %}
+                                    <tr>
+                                        <td>{{ store.id }}</td>
+                                        <td><img src="{{ store.image.url }}" alt="{{ store.name }}" width="150"></td>
+                                        <td>{{ store.name }}</td>
+                                        
+                                        <td>{{ store.category.name }}</td>
+                                        <td>{{store.rating}}</td>
+                                        <td>{{store.short_descritpion}}</td>
+                                        <td>{{store.time}}</td>
+                                        <td>
+                                        <a href="{% url 'store_owner:edit_store' store.id %}" id="custom-btn">Edit</a>
+                                        <a href="{% url 'store_owner:delete_store' store.id %}" id="custom-btn" >Delete</a>
+                                        </td>
+                                        
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--**********************************
+    Content body end
+***********************************-->
+
+{% endblock %}

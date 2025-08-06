@@ -1,0 +1,45 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %}
+
+
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10">
+        <a href="{% url 'web:cart' %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[30px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">Offers</h1>
+
+
+     
+</header>
+<section class="py-10">
+    <section class="wrapper flex flex-col gap-10  justify-center items-center">
+        {% for offer in offers %}
+        <div class="shadow  flex  flex-col justify-start  w-[50%]  rounded-xl">
+            
+            <div class="flex justify-between items-center p-3">
+                <h3 class="font-bold text-[20px]">{{offer.code}}</h3>
+                <a href="{% url 'web:offerapply' id=offer.id %}" class="bg-green-400 p-2 font-bold text-white text-[15px] rounded-xl "> APPLY</a>
+            </div>
+            <div class="py-6  ml-3 text-[18px] text-red-500 font-bold">
+                <p>{{offer.description}}</p>
+            </div>
+            
+        </div>
+        {% endfor %}
+        
+    </section>
+</section>
+{% endblock %}

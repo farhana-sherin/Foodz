@@ -1,0 +1,85 @@
+
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %}
+
+
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+   
+
+    <div class="absolute left-10">
+         <a href="{% url 'web:cart' %}">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[40px]">
+        </a>
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">ADDRESS</h1>
+
+
+     
+</header>
+<section>
+    <section class="wrapper flex justify-center items-center flex-col">
+        
+            <div class="bg-red-500 h-[50px] flex justify-center rounded-lg items-center mt-10 w-[50%] sm:w-[80%] md:w-[50%] ">
+            
+                <div class="flex justify-start items-center  ">
+                    <a href="{% url 'web:add_address' %}"><h1 class="font-bold text-white">ADD NEW ADDRESS</h1></a>
+                </div>
+            </div>
+            {% for addres in address %} 
+            <div class="py-5 flex justify-between items-center border-2 bg-[#7d7c7c29] rounded-xl sm:w-[50%] md:w-[50%] mt-5 px-10  ">
+                
+                <div class=" flex justify-center items-center  p-3">
+                    
+                    <div class="flex justify-center items-center gap-12">
+                        <div>
+                            {% if addres.address_type == 'HOME' %}
+                                <img src="{% static 'web/images/house.png' %}" alt="pic" class="w-[100px] bg-white rounded-full p-3">
+                            {% elif addres.address_type == 'WORK' %}
+                                <img src="{% static 'web/images/work.png' %}" alt="pic" class="w-[90px] bg-white rounded-full p-3">
+                            {% else %}
+                                <h1>OTHER</h1>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="">
+                            <h2 class="font-bold mb-5">{{addres.address_type}}</h2>
+                            <p class="font-semibold">{{addres.address}}</p>
+                        
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                `<div class="flex justify-end items-center gap-5  w-[25%]">
+                    {% if addres.is_selected == True %}
+                        <div><img src="{% static 'web/images/checkmark.png' %}" alt="" class="w-[30px]"></div>
+                    {% else %}
+                        <a href="{% url 'web:address_select' id=addres.id %}"><img src="{% static 'web/images/tick.png' %}" alt="pic" class="w-[30px]"></a>
+                    {% endif %}
+                    <a href="{% url 'web:address_edit'  id=addres.id %}"><img src="{% static 'web/images/edit.png' %}" alt="pic" class="w-[30px]"></a>
+                    <a href="{% url 'web:address_delete' id=addres.id %}"> <img src="{% static 'web/images/delet.png' %}" alt="pic" class="w-[30px]"></a>
+                </div>
+                
+            </div>
+             {% endfor %} 
+                
+
+
+            
+                    
+            </section>
+            </section>
+            {% endblock %}
+                  
+
+                    

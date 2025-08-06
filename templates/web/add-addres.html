@@ -1,0 +1,87 @@
+{% extends 'base/header.html' %}
+
+{% block container %}
+
+
+
+
+
+{% load static %}
+
+
+
+<header class="relative w-full flex justify-center items-center h-[80px] shadow-lg">
+
+    <div class="absolute left-10">
+        <img src="{% static 'web/images/arrow.png' %}" alt="pic" class="h-[40px]">
+    </div>
+
+
+    <h1 class="text-[30px] font-semibold">ADDRESS</h1>
+
+
+
+</header>
+<section class="py-10">
+    <section class="wrapper flex justify-center flex-col items-center">
+        <div class="bg-[#0000003c] h-[30vh] w-[50%] mb-3 rounded "></div>
+        <div class="w-[50%]">
+            <form action="" method="post" class="">
+                {% csrf_token %}
+                <label for="" class="font-bold ">Address </label><br>
+                <input type="text" name="Address" value="{{form.address}}" class="border-2 w-[100%] py-1 rounded mb-2 mt-1 p-3"><br>
+                <label for="" class="font-bold ">Appartment</label><br>
+                <input type="text" name="Appartment" value="{{form.appartment}}" class="border-2 w-[100%] py-1 rounded mb-2 mt-1 p-3 "><br>
+                <label for="" class="font-bold ">landmark</label><br>
+                <input type="text" name="landmark" value="{{form.landmark}}" class="border-2 w-[100%] py-1 rounded mb-2 mt-1 p-3"><br>
+                <div>
+                    <h3 class="font-bold text-[20px]">Label as</h3>
+                    <div class="flex justify-center items-center gap-x-28 py-4">
+                        <div>
+                            <label for="radio3">
+                            <input type="radio" value="HOME" name="address_type"  value="{{form.address_type}}" id="radio1" onclick="selectRadio('home')" required>
+                            HOME</label>
+
+                            
+                        </div>
+
+                        <div>
+                            <label for="radio3">
+                            <input type="radio" value="WORK" name="address_type" value="OTHER" id="radio2" onclick="selectRadio('work')" required>
+                            
+                            WORK</label>
+                           
+                        </div>
+                        <div>
+                            <label for="radio3">
+                            <input type="radio" value="OTHER" name="address_type" value="{{form.address_type}}" id="radio3" onclick="selectRadio('other')" required>
+                            OTHER</label>
+                        </div>
+
+                    </div>
+                    
+
+                </div>
+
+                <div class="bg-red-600 h-[40px] flex justify-center items-center mt-10">
+                    <div class="flex justify-center items-center  ">
+                        <button class="font-bold text-white">
+                            SAVE ADDRESS
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </form>
+        </div>
+
+
+    </section>
+
+</section>
+
+{% endblock %}

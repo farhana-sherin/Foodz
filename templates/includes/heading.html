@@ -1,0 +1,28 @@
+
+
+{% load static%}
+
+    <header class="w-[100%] flex justify-center items-center h-[60px] shadow-lg">
+        <div class="w-[90%] flex justify-between items-center h-[100px]">
+            <img src="{% static 'web/images/logo.png' %} " alt="pic" class="h-[50px]">
+
+            <nav class="hidden md:block">
+
+                <ul class="flex justify-center items-center gap-8">
+                    <li class=" "><a href="{% url 'web:index' %}" class="flex justify-center items-center gap-3"><img src="{% static 'web/images/home.png' %}" alt="pic" class="h-6 ">home</a></li>
+                    <li class=""><a href="" class="flex justify-center items-center gap-3"><img src="{% static 'web/images/search.png' %}" alt="" class="h-6">Search</a></li>
+                    <li class=""><a href="{% url 'web:cart' %}" class="flex justify-center items-center gap-3"><img src="{% static 'web/images/bag.png' %} " alt="pic" class="h-6 ">Cart</a></li>
+                    <li class=""><a href="{% url 'web:account' %}" class="flex justify-center items-center gap-3"><img src="{% static 'web/images/user.png' %}"  alt="pic "class="h-6">Account</a></li>
+                </ul>
+            </nav>
+
+            <div class="flex justify-center items-center">
+                <img src="{% static 'web/images/map.png' %}" alt="" class="h-9 ">
+                <p class="border-b-4 border-b-yellow-500">Tirur,malappuram</p>
+                <a href="{% url 'web:login'%}" class="p-2 bg-slate-600 rounded-full ml-8">
+                  <img src="{% static 'web/images/logout.png' %}" alt="" class="w-[22px]">
+                </a>
+
+            </div>
+        </div>
+    </header>
