@@ -9,7 +9,7 @@ urlpatterns = [
     path('',include("web.urls",namespace='web')),
     path('manager/',include("manager.urls",namespace='manager')),
     path('store_owner/',include("store_owner.urls",namespace='store_owner')),
-    path('api/v1/customer/',include("api.v1.customer.urls")),
+    path('api/v1/customer/',include("api.v1.customer.urls",namespace='customer')),
 
 ]
 

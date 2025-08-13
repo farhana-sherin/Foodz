@@ -246,11 +246,11 @@ def cart(request):
         for offer in offers:
             if Coupencode == offer.code :
                 
-                if offer.is_pecentage:
+                if offer.is_pecentage:  
                     cartbill.offer_amount=itemtotal*(offer.offer/100)
                     cartbill.coupe_code=Coupencode
                     cartbill.save()
-                   
+
                 else:
                     
                     cartbill.offer_amount=(offer.offer)
@@ -415,6 +415,7 @@ def add_fooditem(request , id):
 def inc_fooditem(request ,id):
     
     cart=Cart.objects.get(id=id)
+    
     fooditem_price=cart.item.price
     store=cart.store
 
@@ -448,7 +449,7 @@ def cart_inc_fooditem(request ,id):
 
 
     cart.quantity += 1
-    cart.amount += fooditem_price
+    cart.amount += fooditem_price   
 
     cart.save()
     return HttpResponseRedirect(reverse('web:cart'))
