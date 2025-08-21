@@ -50,6 +50,7 @@ class CartBill(models.Model):
 
     class Meta:
         db_table='cart_bill'
+        
         verbose_name='cart_bill'
         verbose_name_plural='cart_bills'
         ordering=['-id']

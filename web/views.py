@@ -163,7 +163,7 @@ def account(request ):
     user=request.user
     customer=Customer.objects.get(user=user)
     order_count = Order.objects.filter(customer=customer).count()
-    order=Order.objects.filter(customer=customer).order_by('-id')[:2]
+    order=Order.objects.filter(customer=customer).order_by('-id')[:4]
   
 
     item_count=[]
