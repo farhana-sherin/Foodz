@@ -142,11 +142,79 @@ def add_address(request):
     return Response(response_data)
 
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def index(request):
+    store_categories = StoreCategory.objects.all()
+    stores = Store.objects.all()
+    sliders = Slider.objects.all()
+
+    response_data = {
+        "status_code": 6000,
+        "data": {
+            "store_categories": StoreCategorySerializer(store_categories, many=True).data,
+            "stores": StoreSerializer(stores, many=True).data,
+            "sliders": SliderSerializer(sliders, many=True).data
+        },
+        "message": "successfully retrieved"
+    }
+    return Response(response_data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def store(request):
+    store = Store.objects.all()
+    context = {"request": request}
+
+    response_data = {
+        "status_code": 6000,
+        "data": {
+            "store": StoreSerializer(store, many=True, context=context).data
+        },
+        "message": "Successfully retrieved"
+    }
+    return Response(response_data)
+
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def slider(request):
+    sliders = Slider.objects.all()
+    context = {
+        "request": request
+    }
+    response_data = {
+        "status_code": 6000,
+        "data": {
+            "sliders": SliderSerializer(sliders, many=True, context=context).data
+        },
+        "message": "successfully retrieved"
+    }
+    return Response(response_data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def store_categories(request):
+    store_categories = StoreCategory.objects.all()
+    context = {
+        "request": request
+    }
+    response_data = {
+        "status_code": 6000,
+        "data": {
+            "store_categories": StoreCategorySerializer(store_categories, many=True , context=context).data
+        },
+        "message": "successfully retrieved"
+    }
+    return Response(response_data)
+
     
   
 
 @api_view(['PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def update_address(request,id):
     user = request.user
     customer= Customer.objects.get(user=user)
@@ -187,7 +255,7 @@ def delete_address(request,id):
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def account(request):
     user = request.user
     customer = Customer.objects.get(user=user)
@@ -554,21 +622,28 @@ def track(request,id):
     return Response(response_data)
 
 @api_view(['GET'])  
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def restaurent(request,id):
-    store_categories=StoreCategory.objects.all()
-    stores=Store.objects.all()
-    selected_category=StoreCategory.objects.get(id=id)
-    stores=stores.filter(category=selected_category)
-    response_data = {
-        "status_code": 6000,
-        "data": {
-            "store_categories":StoreCategorySerializer(store_categories,many=True).data,
-            "stores": StoreSerializer(stores,many=True).data,
-        },
-        "message": "Restaurent retrieved successfully"
-    }
-    return Response(response_data)
+   store_categories = StoreCategory.objects.all()
+   stores = Store.objects.all()
+
+   selected_category = StoreCategory.objects.get(id=id)
+
+   stores = stores.filter(category=selected_category)
+
+   context ={
+       'request':request
+   }
+
+   response_data = {
+       "status_code": 6000,
+       "data": {
+           "store_categories": StoreCategorySerializer(store_categories, many=True ,context=context).data,
+           "stores": StoreSerializer(stores, many=True).data,
+       },
+       "message": "Restaurent retrieved successfully"
+   }
+   return Response(response_data)
 
 @api_view(['GET'])  
 @permission_classes([IsAuthenticated])

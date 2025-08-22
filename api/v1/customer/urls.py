@@ -26,5 +26,9 @@ urlpatterns = [
     path('single_rest/<int:id>/', views.single_rest, name='single_rest'),
     path('logout/', views.logout, name='logout'),
     path("checkout/",views.checkout,name="checkout"),
+    path("slider/",views.slider,name="slider"),
+    path("index/",views.index,name="index"),
+    path("storeCategories/",views.store_categories,name="storeCategories"),
+    path("store/",views.store,name="store"),
  
 ]

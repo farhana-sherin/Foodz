@@ -11,30 +11,17 @@
 
 
 
-
-    <section class="w-[100%] flex justify-center items-center mt-10 ">
-        <section class="w-[90%] swiper mySwiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide rounded-xl">
-                <img src="{% static 'web/images/slide1.png' %}" alt="" class="w-full rounded-xl ">
-
-            </div>
-            
-           <div class="swiper-slide rounded-xl">
-                <img src="{% static 'web/images/slide2.png' %}" alt="" class="w-full rounded-xl">
-
-            </div>
-           <div class="swiper-slide rounded-xl">
-                <img src="{% static 'web/images/slide3.png' %}" alt="" class="w-full rounded-xl">
-
-            </div>
-
-
-          </div>
-           
-        </section>
-
-    </section>
+<section class="w-[100%] flex justify-center items-center mt-10">
+  <section class="w-[90%] swiper mySwiper">
+    <div class="swiper-wrapper">
+      {% for slider in sliders %}
+        <div class="swiper-slide rounded-xl">
+          <img src="{{ slider.image.url }}" alt="{{ slider.name }}" class="w-full rounded-xl">
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</section>
 
 <section class="pt-10">
   <section class=" wrapper max-w-screen-xl mx-auto overflow-hidden">

@@ -15,11 +15,15 @@ def index(request):
 
     store_categories=StoreCategory.objects.all()
     stores=Store.objects.all()
+    sliders=Slider.objects.all()
     context={
         'store_categories':store_categories,
         'stores':stores,
+        'sliders':sliders
     }
     return render(request,'web/index.html',context=context)
+
+
 
 
 def login(request):

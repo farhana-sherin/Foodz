@@ -45,7 +45,7 @@ class Store(models.Model):
 
 class Slider(models.Model):
     name=models.CharField(max_length=255)
-    image=models.ImageField(upload_to='slider')
+    image=models.FileField(upload_to='slider')
     store=models.ForeignKey(Store, on_delete=models.CASCADE)
 
 

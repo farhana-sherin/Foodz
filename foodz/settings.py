@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'restaurent',
     'manager',
     'store_owner',
+    "corsheaders",
+
 
     
     'rest_framework',
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'foodz.urls'
@@ -151,5 +154,12 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
  

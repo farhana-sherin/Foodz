@@ -61,6 +61,11 @@ class FoodItemSerializer(ModelSerializer):
     class Meta:
         fields = ['id', 'name', 'price', 'image', 'category', 'store', 'is_veg']
         model = FoodItem
+class SliderSerializer(ModelSerializer):
+    
+    class Meta:
+        fields = [ 'name', 'image', 'store']
+        model = Slider
 
 
 
